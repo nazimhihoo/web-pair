@@ -1,3 +1,4 @@
+<h1 align="center" style="font-weight:bold;">
 # ⚡ NextGen-XMD Web-Pair ⚡
 
 <p align="center">
@@ -13,16 +14,27 @@
 </p>
 
 ---
-
 ## 🔹 About Web-Pair
 
-- **Bot Name:**      **NextGen-XMD**  
-- **Primary Developer:**            **NazimX**  
-- **Spcial Persons:**               **Nakcharri & Akash**  
-- **Contact:** [Telegram](https://t.me/+923229168159) • Email: mr.nazimx.nx@gmail.com  
-- **Owner Numbers:** +923229168159 / +923463206754 / +923701335041 / +923252384540  
-- **WhatsApp Channels:** [Official](https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I) | [Backup](https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37)  
+<p align="center">
 
+<span style="display:inline-block; background:linear-gradient(90deg,#ff6b6b,#feca57,#1dd1a1); color:white; padding:8px 15px; border-radius:10px; margin:5px;">Bot Name: <strong>NextGen-XMD</strong></span><br>
+
+<span style="display:inline-block; background:linear-gradient(90deg,#5f27cd,#54a0ff,#00d2d3); color:white; padding:8px 15px; border-radius:10px; margin:5px;">Primary Developer: <strong>NazimX</strong></span><br>
+
+<span style="display:inline-block; background:linear-gradient(90deg,#f368e0,#ff9ff3,#ff6b6b); color:white; padding:8px 15px; border-radius:10px; margin:5px;">
+Special Persons: <strong><blink>Nakcharri & Akash</blink></strong>
+</span><br>
+
+<span style="display:inline-block; background:linear-gradient(90deg,#0abde3,#10ac84,#00d2d3); color:white; padding:8px 15px; border-radius:10px; margin:5px;">Contact: <a href="https://t.me/+923229168159" style="color:#fff;text-decoration:underline;">Telegram</a> • Email: <a href="mailto:mr.nazimx.nx@gmail.com" style="color:#fff;text-decoration:underline;">mr.nazimx.nx@gmail.com</a></span><br>
+
+<span style="display:inline-block; background:linear-gradient(90deg,#ee5253,#feca57,#1dd1a1); color:white; padding:8px 15px; border-radius:10px; margin:5px;">Owner Numbers: <strong>+923229168159 / +923463206754</strong></span><br>
+
+<span style="display:inline-block; background:linear-gradient(90deg,#ff9ff3,#5f27cd,#48dbfb); color:white; padding:8px 15px; border-radius:10px; margin:5px;">
+WhatsApp Channels: <a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I" style="color:#fff;text-decoration:underline;">Official</a> | <a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37" style="color:#fff;text-decoration:underline;">Backup</a>
+</span>
+
+</p> 
 ---
 
 ## ⚡ Features
