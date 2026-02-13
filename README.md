@@ -16,9 +16,9 @@
 
 ## 🔹 About Web-Pair
 
-- **Bot Name:** NextGen-XMD  
-- **Primary Developer:** NazimX  
-- **Fun / Floating Text:** Miss You Nakcharri ❤️ Akash  
+- **Bot Name:**      **NextGen-XMD**  
+- **Primary Developer:**            **NazimX**  
+- **Spcial Persons:**               **Nakcharri & Akash**  
 - **Contact:** [Telegram](https://t.me/+923229168159) • Email: mr.nazimx.nx@gmail.com  
 - **Owner Numbers:** +923229168159 / +923463206754 / +923701335041 / +923252384540  
 - **WhatsApp Channels:** [Official](https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I) | [Backup](https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37)  
@@ -29,8 +29,6 @@
 
 - Enter your WhatsApp number & **generate pair code** instantly  
 - **Copy-to-Clipboard** code functionality  
-- **Floating fun text** animation: “Miss You Nakcharri ❤️ Akash”  
-- **Stylish gradient & glow UI**  
 - Fully **responsive design** for desktop & mobile  
 
 ---
