@@ -1,5 +1,5 @@
 <h1 align="center" style="font-weight:bold;">
-# ⚡ NextGen-XMD Web-Pair ⚡
+ ⚡ NextGen-XMD Web-Pair ⚡
 
 <p align="center">
   <img src="https://files.catbox.moe/i6iehn.bmp" alt="NextGen-XMD Logo" style="border-radius:50px; box-shadow:0 0 20px #00f, 0 0 30px #0ff, 0 0 40px #0ff;">
