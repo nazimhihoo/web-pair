@@ -6,249 +6,202 @@
 <title>PAIR CODE - NextGen-XMD</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
-    /* ----- Global ----- */
-    body {
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        color: #fff;
-        background: linear-gradient(135deg, #141414, #1a1a2e);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    /* ----- Pair Box ----- */
-    .box {
-        width: 320px;
-        padding: 25px;
-        background: rgba(72, 133, 237, 0.85);
-        border-radius: 15px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-        text-align: center;
-        position: relative;
-        transition: transform 0.3s ease;
-    }
-    .box:hover { transform: translateY(-5px); }
+/* ----- Global ----- */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #141414, #1a1a2e);
+}
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 
-    h3, h6 { margin: 5px 0; }
-    .input-container {
-        display: flex;
-        gap: 0.3rem;
-        margin-top: 10px;
-        width: 100%;
-    }
-    .input-container input {
-        flex: 3;
-        padding: 1rem;
-        border-radius: 0.8rem 0 0 0.8rem;
-        border: none;
-        background: #000;
-        color: #ecf0f1;
-        border-left: 2px solid #075e54;
-        transition: all 0.2s ease;
-    }
-    .input-container input:focus {
-        outline: none;
-        box-shadow: inset 8px 8px 10px #075e54, inset -8px -8px 10px #2c3e50;
-    }
-    .input-container button {
-        flex: 1;
-        padding: 1rem;
-        background: #25d366;
-        color: white;
-        font-weight: 900;
-        letter-spacing: 0.2rem;
-        border-radius: 0 0.8rem 0.8rem 0;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .input-container button:hover { background: #2980b9; }
-
-    #loading-spinner {
-        display: none;
-        margin-top: 10px;
-        font-size: 1.5rem;
-    }
-
-    #pair {
-        margin-top: 15px;
-        word-break: break-all;
-    }
-
-    /* ----- Developer / Bot Info Panel ----- */
-    .info-panel {
-        width: 350px;
-        background: rgba(0,0,0,0.5);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-        text-align: left;
-        position: relative;
-        color: #fff;
-        animation: fadeIn 1s ease;
-    }
-    .info-panel img {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        float: right;
-        margin-left: 15px;
-        border: 2px solid #25d366;
-    }
-    .info-panel h4 { margin: 5px 0; }
-    .info-panel p { margin: 3px 0; font-size: 0.9rem; line-height: 1.4rem; }
-    .info-panel a { color: #25d366; text-decoration: none; }
-    .info-panel a:hover { text-decoration: underline; }
-
-    .plugins {
-        margin-top: 10px;
-        border-top: 1px solid #fff3;
-        padding-top: 8px;
-    }
-    .plugins table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.85rem;
-    }
-    .plugins th, .plugins td {
-        border: 1px solid #fff3;
-        padding: 5px;
-        text-align: left;
-    }
-
-    /* ----- Footer ----- */
-    .footer {
-        margin-top: 20px;
-        font-size: 0.85rem;
-        opacity: 0.8;
-        text-align: center;
-        position: relative;
-    }
-    .akash-fun {
-        position: absolute;
-        left: -10px;
-        top: -10px;
-        font-size: 0.9rem;
-        color: #ff6b81;
-        animation: floatAkash 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatAkash {
-        0% { transform: translateY(0px);}
-        100% { transform: translateY(-10px);}
-    }
-
-    @keyframes fadeIn {
-        from {opacity:0;}
-        to {opacity:1;}
-    }
-
-    /* ----- Responsive ----- */
-    @media (max-width: 500px) {
-        .box, .info-panel { width: 90%; }
-        .input-container { flex-direction: column; }
-        .input-container button, .input-container input { border-radius: 0.8rem; width: 100%; }
-    }
-</style>
-</head>
-<body>
-<div class="container">
-
-    <!-- ----- Pair Box ----- -->
-    <div class="box" id="box">
-        <i class="fa fa-user"></i>
-        <h3 class="centered-text">Link with phone number</h3>
-        <h6>🔢 Enter your number with country code.</h6>
-        <div class="input-container">
-            <input type="number" id="number" placeholder="+94729xxxxxx">
-            <button id="submit">Submit</button>
-        </div>
-        <div id="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
-        <main id="pair"></main>
-    </div>
-
-    <!-- ----- Developer / Bot Info Panel ----- -->
-    <div class="info-panel">
-        <span class="akash-fun">Miss You Nakcharri ❤️ Akash</span>
-        <img src="https://files.catbox.moe/i6iehn.bmp" alt="Profile Photo">
-        <h4>NazimX</h4>
-        <p>👨‍💻 About Me</p>
-        <p>🔭 Building: NextGen-XMD – powerful WhatsApp bot with plugin-based architecture</p>
-        <p>⚙️ Skills: Node.js, Puppeteer, Cheerio, Axios, Canvas, fs, path, Linux, Bash</p>
-        <p>🛠 Plugins: Image editing, file downloaders, logo generators, media tools, search bots, and more</p>
-        <p>📦 Deployment: Railway, GitHub Actions, PAT-secured private modules</p>
-        <p>📫 Reach me at: <a href="mailto:mr.nazimx.nx@gmail.com">mr.nazimx.nx@gmail.com</a> or Telegram: <a href="https://t.me/+923229168159">+923229168159</a></p>
-        <p>⚡ Fun Fact: My bot writes cleaner code than some humans 🧠</p>
-        <p>Owner numbers: 923229168159 / 923463206754 / 923701335041 / 923252384540</p>
-        <p>WhatsApp Channels: <a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I">Official</a> | <a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37">Backup</a></p>
-        <div class="plugins">
-            <strong>Plugin Highlights:</strong>
-            <table>
-                <tr><th>Type</th><th>Description</th></tr>
-                <tr><td>🖼️ Image Tools</td><td>Circle crop, round borders, quote stickers, photo effects</td></tr>
-                <tr><td>🎨 Logo Generators</td><td>Neon text, anime-style, fancy fonts, glowing effects</td></tr>
-                <tr><td>📥 File Downloaders</td><td>GDrive bypass, PDF tools, video downloaders</td></tr>
-                <tr><td>🌐 Search Plugins</td><td>Google, IMDb, Wikipedia, Lyrics, Weather</td></tr>
-                <tr><td>🔁 Media Converters</td><td>Image ↔ Audio ↔ Video conversions</td></tr>
-                <tr><td>📜 Misc Commands</td><td>Fancy text, dictionary, jokes, quotes, utilities</td></tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- ----- Footer ----- -->
-    <div class="footer">Powered by NazimX © NextGen✧𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋✓</div>
-</div>
-
-<!-- ----- Scripts ----- -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-<script>
-let a = document.getElementById("pair");
-let b = document.getElementById("submit");
-let c = document.getElementById("number");
-let box = document.getElementById("box");
-
-async function Copy() {
-    let text = document.getElementById("copy").innerText;
-    let obj = document.getElementById("copy");
-    await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-    obj.innerText = "✔️ COPIED";
-    obj.style = "color:red;font-weight:bold";
-    setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight:bold";
-    }, 500);
+/* Container */
+.container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
 }
 
-b.addEventListener("click", async (e) => {
-    e.preventDefault();
-    if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
-    } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
-    } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "", bbc = "";
-        const cc = bc.split('');
-        cc.map(a=>{bbc+=a;if(bbc.length==3){bb+=" "+a;}else if(bbc.length==8){bb+=" "+a;}else{bb+=a;}});
-        c.type = "text";
-        c.value = "+"+bb;
-        c.style = "color:white;font-size:20px";
-        document.getElementById("loading-spinner").style.display="block";
-        a.innerHTML = '';
-        let { data } = await axios(`/code?number=${bc}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br><br>';
-        document.getElementById("loading-spinner").style.display="none";
-    }
+/* Pair Box */
+.box{
+    width:320px;
+    padding:25px;
+    background:rgba(72,133,237,0.85);
+    border-radius:15px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    text-align:center;
+    transition:transform 0.3s ease;
+}
+.box:hover{transform:translateY(-5px);}
+h3,h6{margin:5px 0;}
+.input-container{
+    display:flex;
+    gap:0.3rem;
+    margin-top:10px;
+    width:100%;
+}
+.input-container input{
+    flex:3;
+    padding:1rem;
+    border-radius:0.8rem 0 0 0.8rem;
+    border:none;
+    background:#000;
+    color:#ecf0f1;
+    border-left:2px solid #075e54;
+    transition:all 0.2s ease;
+}
+.input-container input:focus{
+    outline:none;
+    box-shadow:inset 8px 8px 10px #075e54,inset -8px -8px 10px #2c3e50;
+}
+.input-container button{
+    flex:1;
+    padding:1rem;
+    background:#25d366;
+    color:white;
+    font-weight:900;
+    letter-spacing:0.2rem;
+    border-radius:0 0.8rem 0.8rem 0;
+    border:none;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+.input-container button:hover{background:#2980b9;}
+#loading-spinner{display:none;margin-top:10px;font-size:1.5rem;}
+#pair{margin-top:15px;word-break:break-all;}
+
+/* Developer Info Panel Short */
+.info-panel{
+    width:320px;
+    background:rgba(0,0,0,0.5);
+    border-radius:15px;
+    padding:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.5);
+    text-align:center;
+    color:#fff;
+    position:relative;
+}
+.info-panel h4{margin:5px 0;font-size:1.1rem;}
+.info-panel p{margin:3px 0;font-size:0.9rem;line-height:1.3rem;}
+.info-panel a{color:#25d366;text-decoration:none;}
+.info-panel a:hover{text-decoration:underline;}
+
+/* Floating VIP fun */
+.akash-fun{position:absolute;left:5px;top:-10px;font-size:0.9rem;color:#ff6b81;animation:floatAkash 3s ease-in-out infinite alternate;}
+#bot-pp{width:140px;height:80px;border-radius:10px;border:3px solid #25d366;box-shadow:0 0 20px #25d366;animation:float 3s ease-in-out infinite;}
+#animated-text{font-size:1.6rem;font-weight:bold;text-align:center;animation:glow 2s ease-in-out infinite alternate;color:#FFD93D;}
+
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes floatAkash{0%{transform:translateY(0px);}100%{transform:translateY(-8px);}}
+@keyframes glow{0%{color:#FFD93D;}50%{color:#6BCB77;}100%{color:#FF6B6B;}}
+@media(max-width:500px){.box,.info-panel{width:90%;}.input-container{flex-direction:column;}.input-container button,.input-container input{border-radius:0.8rem;width:100%;}}
+</style>
+</head>
+
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<div class="container">
+
+    <!-- Bot PP -->
+    <img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp" alt="Bot PP">
+
+    <!-- Animated Made by Text -->
+    <div id="animated-text">Develped by NazimX 🌟</div>
+
+    <!-- Fun Floating Message -->
+    <span class="akash-fun">Miss You Nakcharri ❤️ Akash</span>
+
+    <!-- Pair Box -->
+    <div class="box" id="box">
+        <i class="fa fa-user"></i>
+        <h3>Connect your WhatsApp account</h3>
+        <h6>Enter your number with country code</h6>
+        <div class="input-container">
+            <input type="number" id="number" placeholder="+923xxxxxxx">
+            <button id="submit">Generate Pair Code</button>
+        </div>
+        <div id="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+        <main id="pair">Your pair code will appear here</main>
+    </div>
+
+    <!-- Short Bot Info -->
+    <div class="info-panel">
+        <h4>NextGen-XMD</h4>
+        <p>Connect your WhatsApp securely</p>
+        <p>Owner: <a href="tel:+923229168159">+923229168159</a></p>
+        <p>Telegram: <a href="https://t.me/+923229168159">+923229168159</a></p>
+        <p>Official Channel: <a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I">Join</a></p>
+        <p>Backup Channel: <a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37">Join</a></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">© 2026 NextGen ✧ Powered by NazimX</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script>
+let a=document.getElementById("pair");
+let b=document.getElementById("submit");
+let c=document.getElementById("number");
+
+async function Copy(){
+let text=document.getElementById("copy")?.innerText||'';
+let obj=document.getElementById("copy");
+if(obj){await navigator.clipboard.writeText(obj.innerText.replace('CODE: ',''));
+obj.innerText="✔️ COPIED";obj.style="color:red;font-weight:bold";
+setTimeout(()=>{obj.innerText=text;obj.style="color:white;font-weight:bold";},500);}
+}
+
+b.addEventListener("click",async(e)=>{
+e.preventDefault();
+if(!c.value){a.innerHTML='<a style="color:black;font-weight:bold">❗Enter your WhatsApp number with country code.</a><br><br>';}
+else if(c.value.replace(/[^0-9]/g,"").length<11){a.innerHTML='<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';}
+else{
+const bc=c.value.replace(/[^0-9]/g,"");
+let bb="",bbc="";const cc=bc.split('');
+cc.map(a=>{bbc+=a;if(bbc.length==3){bb+=" "+a;}else if(bbc.length==8){bb+=" "+a;}else{bb+=a;}});
+c.type="text";c.value="+"+bb;c.style="color:white;font-size:18px";
+document.getElementById("loading-spinner").style.display="block";a.innerHTML='';
+let {data}=await axios(`/code?number=${bc}`);
+let code=data.code||"❗ Service Unavailable";
+a.innerHTML='<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br>';
+document.getElementById("loading-spinner").style.display="none";
+}
 });
+
+// ===== Background Petals Animation =====
+const canvas=document.getElementById("bg-canvas");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let petals=[];
+const colors=["#FF6B6B","#FFD93D","#6BCB77","#4D96FF","#FF6EC7"];
+for(let i=0;i<60;i++){
+    petals.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,color:colors[Math.floor(Math.random()*colors.length)],speed:Math.random()*2+1,angle:Math.random()*360});
+}
+function drawPetals(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let p of petals){
+        ctx.beginPath();
+        ctx.fillStyle=p.color;
+        ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+        ctx.fill();
+        p.y-=p.speed;
+        p.x+=Math.sin(p.angle)*0.5;
+        p.angle+=0.01;
+        if(p.y<-10)p.y=canvas.height+10;
+        if(p.x>canvas.width+10)p.x=-10;
+    }
+    requestAnimationFrame(drawPetals);
+}
+drawPetals();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
 </body>
 </html> 
