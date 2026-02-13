@@ -92,14 +92,44 @@ h3,h6{margin:5px 0;}
 .info-panel a{color:#25d366;text-decoration:none;}
 .info-panel a:hover{text-decoration:underline;}
 
-/* Floating VIP fun */
-.akash-fun{position:absolute;left:5px;top:-10px;font-size:0.9rem;color:#ff6b81;animation:floatAkash 3s ease-in-out infinite alternate;}
-#bot-pp{width:140px;height:80px;border-radius:10px;border:3px solid #25d366;box-shadow:0 0 20px #25d366;animation:float 3s ease-in-out infinite;}
-#animated-text{font-size:1.6rem;font-weight:bold;text-align:center;animation:glow 2s ease-in-out infinite alternate;color:#FFD93D;}
+/* Floating VIP fun fixed position with gradient blue */
+.akash-fun {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: floatAkash 3s ease-in-out infinite alternate;
+    z-index: 1000;
+}
 
+/* Bot PP */
+#bot-pp{
+    width:140px;
+    height:80px;
+    border-radius:10px;
+    border:3px solid #25d366;
+    box-shadow:0 0 20px #25d366;
+    animation:float 3s ease-in-out infinite;
+}
+
+/* Animated Made by Text */
+#animated-text{
+    font-size:1.6rem;
+    font-weight:bold;
+    text-align:center;
+    animation:glow 2s ease-in-out infinite alternate;
+    color:#FFD93D;
+}
+
+/* Animations */
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-@keyframes floatAkash{0%{transform:translateY(0px);}100%{transform:translateY(-8px);}}
+@keyframes floatAkash{0%{transform:translateY(0px);}100%{transform:translateY(-10px);}}
 @keyframes glow{0%{color:#FFD93D;}50%{color:#6BCB77;}100%{color:#FF6B6B;}}
+
 @media(max-width:500px){.box,.info-panel{width:90%;}.input-container{flex-direction:column;}.input-container button,.input-container input{border-radius:0.8rem;width:100%;}}
 </style>
 </head>
@@ -113,9 +143,9 @@ h3,h6{margin:5px 0;}
     <img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp" alt="Bot PP">
 
     <!-- Animated Made by Text -->
-    <div id="animated-text">Develped by NazimX 🌟</div>
+    <div id="animated-text">Developed by NazimX 🌟</div>
 
-    <!-- Fun Floating Message -->
+    <!-- Floating Fun Text -->
     <span class="akash-fun">Miss You Nakcharri ❤️ Akash</span>
 
     <!-- Pair Box -->
@@ -204,4 +234,4 @@ drawPetals();
 window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
 </body>
-</html> 
+</html>
