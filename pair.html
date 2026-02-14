@@ -18,81 +18,99 @@ body {
     min-height: 100vh;
     background: linear-gradient(135deg, #141414, #1a1a2e);
 }
-#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+#bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    filter: blur(1px);
+}
 
 /* Container */
-.container{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-/* Pair Box */
-.box{
-    width:320px;
-    padding:25px;
-    background:rgba(72,133,237,0.85);
-    border-radius:15px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.5);
-    text-align:center;
-    transition:transform 0.3s ease;
+/* Pair Box - Modern Glassmorphism */
+.box {
+    width: 320px;
+    padding: 25px;
+    background: rgba(72,133,237,0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.box:hover{transform:translateY(-5px);}
-h3,h6{margin:5px 0;}
-.input-container{
-    display:flex;
-    gap:0.3rem;
-    margin-top:10px;
-    width:100%;
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.6);
 }
-.input-container input{
-    flex:3;
-    padding:1rem;
-    border-radius:0.8rem 0 0 0.8rem;
-    border:none;
-    background:#000;
-    color:#ecf0f1;
-    border-left:2px solid #075e54;
-    transition:all 0.2s ease;
-}
-.input-container input:focus{
-    outline:none;
-    box-shadow:inset 8px 8px 10px #075e54,inset -8px -8px 10px #2c3e50;
-}
-.input-container button{
-    flex:1;
-    padding:1rem;
-    background:#25d366;
-    color:white;
-    font-weight:900;
-    letter-spacing:0.2rem;
-    border-radius:0 0.8rem 0.8rem 0;
-    border:none;
-    cursor:pointer;
-    transition:all 0.3s ease;
-}
-.input-container button:hover{background:#2980b9;}
-#loading-spinner{display:none;margin-top:10px;font-size:1.5rem;}
-#pair{margin-top:15px;word-break:break-all;}
 
-/* Developer Info Panel Short */
-.info-panel{
-    width:320px;
-    background:rgba(0,0,0,0.5);
-    border-radius:15px;
-    padding:15px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.5);
-    text-align:center;
-    color:#fff;
-    position:relative;
-}
-.info-panel h4{margin:5px 0;font-size:1.1rem;}
-.info-panel p{margin:3px 0;font-size:0.9rem;line-height:1.3rem;}
-.info-panel a{color:#25d366;text-decoration:none;}
-.info-panel a:hover{text-decoration:underline;}
+h3,h6 { margin: 5px 0; }
 
-/* Floating VIP fun fixed position with gradient blue */
+/* Input Container */
+.input-container {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 10px;
+    width: 100%;
+}
+.input-container input {
+    flex: 3;
+    padding: 1rem;
+    border-radius: 0.8rem 0 0 0.8rem;
+    border: none;
+    background: #000;
+    color: #ecf0f1;
+    border-left: 2px solid #075e54;
+    transition: all 0.2s ease;
+}
+.input-container input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #25d366, inset 0 0 5px #00b894;
+}
+.input-container button {
+    flex: 1;
+    padding: 1rem;
+    background: linear-gradient(135deg,#25d366,#00b894);
+    color: white;
+    font-weight: 900;
+    letter-spacing: 0.2rem;
+    border-radius: 0 0.8rem 0.8rem 0;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.input-container button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+#loading-spinner { display: none; margin-top: 10px; font-size: 1.5rem; }
+#pair { margin-top: 15px; word-break: break-all; }
+
+/* Developer Info Panel */
+.info-panel {
+    width: 320px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.info-panel h4 { margin: 5px 0; font-size: 1.1rem; }
+.info-panel p { margin: 3px 0; font-size: 0.9rem; line-height: 1.3rem; }
+.info-panel a { color: #25d366; text-decoration: none; }
+.info-panel a:hover { text-decoration: underline; }
+
+/* Floating VIP Fun Text */
 .akash-fun {
     position: fixed;
     top: 20px;
@@ -107,30 +125,41 @@ h3,h6{margin:5px 0;}
 }
 
 /* Bot PP */
-#bot-pp{
-    width:140px;
-    height:80px;
-    border-radius:10px;
-    border:3px solid #25d366;
-    box-shadow:0 0 20px #25d366;
-    animation:float 3s ease-in-out infinite;
+#bot-pp {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #25d366;
+    box-shadow: 0 0 30px #25d366;
+    animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s;
+}
+#bot-pp:hover {
+    transform: scale(1.1) translateY(-5px);
 }
 
 /* Animated Made by Text */
-#animated-text{
-    font-size:1.6rem;
-    font-weight:bold;
-    text-align:center;
-    animation:glow 2s ease-in-out infinite alternate;
-    color:#FFD93D;
+#animated-text {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(90deg, #FFD93D,#6BCB77,#FF6B6B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 3s ease-in-out infinite alternate;
 }
 
 /* Animations */
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-@keyframes floatAkash{0%{transform:translateY(0px);}100%{transform:translateY(-10px);}}
-@keyframes glow{0%{color:#FFD93D;}50%{color:#6BCB77;}100%{color:#FF6B6B;}}
+@keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+@keyframes floatAkash { 0%,100%{ transform:translateY(0px); } 50%{ transform:translateY(-12px) rotate(-2deg); } }
+@keyframes glow { 0%{ color:#FFD93D; } 50%{ color:#6BCB77; } 100%{ color:#FF6B6B; } }
 
-@media(max-width:500px){.box,.info-panel{width:90%;}.input-container{flex-direction:column;}.input-container button,.input-container input{border-radius:0.8rem;width:100%;}}
+/* Responsive */
+@media(max-width:500px){
+    .box,.info-panel{ width:90%; }
+    .input-container{ flex-direction: column; }
+    .input-container button,.input-container input{ border-radius:0.8rem;width:100%; }
+}
 </style>
 </head>
 
@@ -182,28 +211,36 @@ let b=document.getElementById("submit");
 let c=document.getElementById("number");
 
 async function Copy(){
-let text=document.getElementById("copy")?.innerText||'';
-let obj=document.getElementById("copy");
-if(obj){await navigator.clipboard.writeText(obj.innerText.replace('CODE: ',''));
-obj.innerText="✔️ COPIED";obj.style="color:red;font-weight:bold";
-setTimeout(()=>{obj.innerText=text;obj.style="color:white;font-weight:bold";},500);}
+    let text=document.getElementById("copy")?.innerText||'';
+    let obj=document.getElementById("copy");
+    if(obj){
+        await navigator.clipboard.writeText(obj.innerText.replace('CODE: ',''));
+        obj.innerText="✔️ COPIED";
+        obj.style="color:red;font-weight:bold";
+        setTimeout(()=>{obj.innerText=text;obj.style="color:white;font-weight:bold";},500);
+    }
 }
 
 b.addEventListener("click",async(e)=>{
-e.preventDefault();
-if(!c.value){a.innerHTML='<a style="color:black;font-weight:bold">❗Enter your WhatsApp number with country code.</a><br><br>';}
-else if(c.value.replace(/[^0-9]/g,"").length<11){a.innerHTML='<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';}
-else{
-const bc=c.value.replace(/[^0-9]/g,"");
-let bb="",bbc="";const cc=bc.split('');
-cc.map(a=>{bbc+=a;if(bbc.length==3){bb+=" "+a;}else if(bbc.length==8){bb+=" "+a;}else{bb+=a;}});
-c.type="text";c.value="+"+bb;c.style="color:white;font-size:18px";
-document.getElementById("loading-spinner").style.display="block";a.innerHTML='';
-let {data}=await axios(`/code?number=${bc}`);
-let code=data.code||"❗ Service Unavailable";
-a.innerHTML='<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br>';
-document.getElementById("loading-spinner").style.display="none";
-}
+    e.preventDefault();
+    if(!c.value){
+        a.innerHTML='<a style="color:black;font-weight:bold">❗Enter your WhatsApp number with country code.</a><br><br>';
+    }
+    else if(c.value.replace(/[^0-9]/g,"").length<11){
+        a.innerHTML='<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+    }
+    else{
+        const bc=c.value.replace(/[^0-9]/g,"");
+        let bb="",bbc="";
+        const cc=bc.split('');
+        cc.map(a=>{bbc+=a;if(bbc.length==3){bb+=" "+a;}else if(bbc.length==8){bb+=" "+a;}else{bb+=a;}});
+        c.type="text";c.value="+"+bb;c.style="color:white;font-size:18px";
+        document.getElementById("loading-spinner").style.display="block";a.innerHTML='';
+        let {data}=await axios(`/code?number=${bc}`);
+        let code=data.code||"❗ Service Unavailable";
+        a.innerHTML='<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br>';
+        document.getElementById("loading-spinner").style.display="none";
+    }
 });
 
 // ===== Background Petals Animation =====
