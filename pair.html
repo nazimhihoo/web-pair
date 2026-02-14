@@ -23,7 +23,6 @@ body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -1;
-    filter: blur(1px);
 }
 
 /* Container */
@@ -32,9 +31,10 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    position: relative;
 }
 
-/* Pair Box - Modern Glassmorphism */
+/* Pair Box - Glassmorphism */
 .box {
     width: 320px;
     padding: 25px;
@@ -92,12 +92,13 @@ h3,h6 { margin: 5px 0; }
 }
 
 #loading-spinner { display: none; margin-top: 10px; font-size: 1.5rem; }
-#pair { margin-top: 15px; word-break: break-all; }
+#pair { margin-top: 15px; word-break: break-all; text-align: center; }
+#qrcode { margin-top: 15px; }
 
-/* Developer Info Panel */
+/* Developer Info Panel - Gradient Background */
 .info-panel {
     width: 320px;
-    background: rgba(0,0,0,0.5);
+    background: linear-gradient(135deg, #000000, #111111);
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -106,22 +107,21 @@ h3,h6 { margin: 5px 0; }
     position: relative;
 }
 .info-panel h4 { margin: 5px 0; font-size: 1.1rem; }
-.info-panel p { margin: 3px 0; font-size: 0.9rem; line-height: 1.3rem; }
-.info-panel a { color: #25d366; text-decoration: none; }
+.info-panel p { margin: 3px 0; font-size: 0.9rem; line-height: 1.3rem; display: flex; align-items: center; justify-content: center; gap:5px; }
+.info-panel a { color: #25d366; text-decoration: none; display: flex; align-items: center; gap:5px; }
 .info-panel a:hover { text-decoration: underline; }
 
 /* Floating VIP Fun Text */
-.akash-fun {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+.floating-text {
+    position: absolute;
     font-size: 1rem;
     font-weight: bold;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: floatAkash 3s ease-in-out infinite alternate;
     z-index: 1000;
+    pointer-events: none;
+    animation: floatMove 15s linear infinite;
 }
 
 /* Bot PP */
@@ -151,7 +151,13 @@ h3,h6 { margin: 5px 0; }
 
 /* Animations */
 @keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
-@keyframes floatAkash { 0%,100%{ transform:translateY(0px); } 50%{ transform:translateY(-12px) rotate(-2deg); } }
+@keyframes floatMove {
+    0% { top:10%; left:5%; }
+    25% { top:70%; left:10%; }
+    50% { top:20%; left:80%; }
+    75% { top:80%; left:60%; }
+    100% { top:10%; left:5%; }
+}
 @keyframes glow { 0%{ color:#FFD93D; } 50%{ color:#6BCB77; } 100%{ color:#FF6B6B; } }
 
 /* Responsive */
@@ -171,11 +177,11 @@ h3,h6 { margin: 5px 0; }
     <!-- Bot PP -->
     <img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp" alt="Bot PP">
 
+    <!-- Floating Fun Text -->
+    <div class="floating-text">Miss You Nakcharri ❤️ Akash</div>
+
     <!-- Animated Made by Text -->
     <div id="animated-text">Developed by NazimX 🌟</div>
-
-    <!-- Floating Fun Text -->
-    <span class="akash-fun">Miss You Nakcharri ❤️ Akash</span>
 
     <!-- Pair Box -->
     <div class="box" id="box">
@@ -188,23 +194,22 @@ h3,h6 { margin: 5px 0; }
         </div>
         <div id="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
         <main id="pair">Your pair code will appear here</main>
+        <div id="qrcode"></div>
     </div>
 
-    <!-- Short Bot Info -->
+    <!-- Bottom Info Panel -->
     <div class="info-panel">
         <h4>NextGen-XMD</h4>
-        <p>Connect your WhatsApp securely</p>
-        <p>Owner: <a href="tel:+923229168159">+923229168159</a></p>
-        <p>Telegram: <a href="https://t.me/+923229168159">+923229168159</a></p>
-        <p>Official Channel: <a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I">Join</a></p>
-        <p>Backup Channel: <a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37">Join</a></p>
+        <p><i class="fab fa-whatsapp"></i> Owner</p>
+        <p><i class="fab fa-telegram"></i> Telegram</p>
+        <p><a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I">Official Channel: Join</a></p>
+        <p><a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37">Backup Channel: Join</a></p>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">© 2026 NextGen ✧ Powered by NazimX</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 let a=document.getElementById("pair");
 let b=document.getElementById("submit");
@@ -221,6 +226,18 @@ async function Copy(){
     }
 }
 
+function generateQRCode(text){
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), {
+        text: text,
+        width: 160,
+        height: 160,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+}
+
 b.addEventListener("click",async(e)=>{
     e.preventDefault();
     if(!c.value){
@@ -231,15 +248,10 @@ b.addEventListener("click",async(e)=>{
     }
     else{
         const bc=c.value.replace(/[^0-9]/g,"");
-        let bb="",bbc="";
-        const cc=bc.split('');
-        cc.map(a=>{bbc+=a;if(bbc.length==3){bb+=" "+a;}else if(bbc.length==8){bb+=" "+a;}else{bb+=a;}});
-        c.type="text";c.value="+"+bb;c.style="color:white;font-size:18px";
-        document.getElementById("loading-spinner").style.display="block";a.innerHTML='';
         let {data}=await axios(`/code?number=${bc}`);
         let code=data.code||"❗ Service Unavailable";
         a.innerHTML='<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br>';
-        document.getElementById("loading-spinner").style.display="none";
+        generateQRCode("https://yourpairlink.com/?code=" + code);
     }
 });
 
