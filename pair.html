@@ -3,421 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NextGen-XMD Session</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<title>NextGen-XMD Pair</title>
 
 <style>
-
-/* BACKGROUND */
-
 body{
 margin:0;
-font-family:Arial;
-color:#fff;
+font-family:Arial, sans-serif;
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
-background:linear-gradient(135deg,#141414,#1a1a2e);
-overflow:hidden;
+height:100vh;
 }
-
-#bg-canvas{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-/* CONTAINER */
 
 .container{
-
-width:340px;
+background:#2c3e50;
 padding:25px;
-border-radius:18px;
-
-background:rgba(72,133,237,0.25);
-
-backdrop-filter:blur(12px);
-
-box-shadow:0 8px 30px rgba(0,0,0,0.6);
-
+border-radius:15px;
+width:320px;
 text-align:center;
-
+box-shadow:0 0 20px rgba(0,255,150,0.3);
 }
 
-/* BOT IMAGE */
-
-#bot-pp{
-
-width:120px;
-height:120px;
+.logo{
+width:100px;
+height:100px;
 border-radius:50%;
-border:3px solid #25d366;
-box-shadow:0 0 25px #25d366;
-margin-bottom:10px;
-
-}
-
-/* TITLE */
-
-.title{
-
-font-size:22px;
-font-weight:bold;
-
-}
-
-.subtitle{
-
-font-size:14px;
-opacity:0.8;
+border:4px solid #00ff99;
+margin:auto;
 margin-bottom:15px;
-
 }
 
-/* TOGGLE */
-
-.toggle-container{
-
-display:flex;
-background:#000;
-border-radius:10px;
-margin-bottom:15px;
-
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+background:#00c97f;
+color:white;
+font-size:16px;
+cursor:pointer;
 }
 
-.toggle-option{
+button:hover{
+background:#00a86b;
+}
 
-flex:1;
+input{
+width:100%;
 padding:10px;
-cursor:pointer;
-
-}
-
-.toggle-option.active{
-
-background:#25d366;
-
-}
-
-/* INPUT */
-
-.input{
-
-width:100%;
-padding:12px;
-border-radius:10px;
+margin-top:10px;
+border-radius:8px;
 border:none;
-margin-bottom:10px;
-background:#000;
-color:#fff;
-
+outline:none;
 }
 
-/* BUTTON */
-
-.btn{
-
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-background:linear-gradient(135deg,#25d366,#00b894);
-color:#fff;
-font-weight:bold;
-cursor:pointer;
-
-}
-
-/* DISPLAY */
-
-.display{
-
+#codeBox{
 margin-top:15px;
 padding:12px;
-background:#000;
-border-radius:10px;
-min-height:40px;
-
-}
-
-/* COPY */
-
-.copy{
-
-margin-top:10px;
-padding:10px;
-width:100%;
-background:#111;
-border:none;
-border-radius:10px;
-color:#fff;
-cursor:pointer;
-
-}
-
-/* QR */
-
-#qr{
-
-display:none;
-margin-top:10px;
-
-}
-
-#qr img{
-
-width:200px;
-border-radius:10px;
-
+background:black;
+border-radius:8px;
 }
 
 .footer{
-
 margin-top:15px;
-font-size:12px;
-opacity:0.7;
-
+font-size:14px;
+color:#ccc;
 }
-
 </style>
-
 </head>
 
 <body>
 
-<canvas id="bg-canvas"></canvas>
-
 <div class="container">
 
-<img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp">
+<div class="logo"></div>
 
-<div class="title">NextGen-XMD</div>
+<h2>NextGen-XMD</h2>
+<p>Connect your WhatsApp</p>
 
-<div class="subtitle">Connect your WhatsApp</div>
+<input type="text" placeholder="+923xxxxxxxxx" id="number">
 
+<button onclick="generateCode()">Generate Pair Code</button>
 
-<!-- TOGGLE -->
+<div id="codeBox">Loading...</div>
 
-<div class="toggle-container">
-
-<div class="toggle-option active" onclick="setMode('pair')" id="pairBtn">
-
-Pair Code
-
-</div>
-
-<div class="toggle-option" onclick="setMode('qr')" id="qrBtn">
-
-QR Code
-
-</div>
-
-</div>
-
-
-<!-- INPUT -->
-
-<input class="input" id="number" placeholder="+923xxxxxxxxx">
-
-
-<button class="btn" id="submit">
-
-Generate Pair Code
-
-</button>
-
-
-<div class="display" id="display">
-
-Your code will appear here
-
-</div>
-
-
-<button class="copy" onclick="copyCode()">
-
-Copy Code
-
-</button>
-
-
-<div id="qr">
-
-<img id="qrimg">
-
-</div>
-
+<button onclick="copyCode()">Copy Code</button>
 
 <div class="footer">
-
 © NextGen-XMD
-
 </div>
 
 </div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 
 
 <script>
 
-/* MODE */
+function generateCode(){
 
-let mode="pair"
+let num = document.getElementById("number").value;
 
-
-function setMode(m){
-
-mode=m
-
-display.innerHTML="Loading..."
-
-qr.style.display="none"
-
-if(m=="pair"){
-
-submit.style.display="block"
-
-number.style.display="block"
-
-pairBtn.classList.add("active")
-
-qrBtn.classList.remove("active")
-
+if(num==""){
+alert("Enter number");
+return;
 }
 
-else{
+let code = "NX-"+Math.floor(Math.random()*1000000);
 
-submit.style.display="none"
-
-number.style.display="none"
-
-pairBtn.classList.remove("active")
-
-qrBtn.classList.add("active")
-
-loadQR()
+document.getElementById("codeBox").innerHTML = code;
 
 }
-
-}
-
-
-/* PAIR */
-
-submit.onclick=async()=>{
-
-let num=number.value.replace(/[^0-9]/g,"")
-
-if(!num){
-
-display.innerHTML="Enter number"
-
-return
-
-}
-
-display.innerHTML="Loading..."
-
-let res=await axios("/pair?number="+num)
-
-let code=res.data.code||"Error"
-
-display.innerHTML="CODE: "+code
-
-}
-
-
-/* QR */
-
-async function loadQR(){
-
-let res=await axios("/qr")
-
-qrimg.src=res.data.qr
-
-qr.style.display="block"
-
-display.innerHTML="Scan QR"
-
-}
-
-
-/* COPY */
 
 function copyCode(){
 
-let text=display.innerText.replace("CODE: ","")
+let code =
+document.getElementById("codeBox").innerHTML;
 
-navigator.clipboard.writeText(text)
+navigator.clipboard.writeText(code);
 
-display.innerHTML="Copied ✔"
-
-}
-
-
-/* BACKGROUND */
-
-let canvas=document.getElementById("bg-canvas")
-
-let ctx=canvas.getContext("2d")
-
-canvas.width=innerWidth
-
-canvas.height=innerHeight
-
-let p=[]
-
-for(let i=0;i<50;i++){
-
-p.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*5,
-
-s:Math.random()*2
-
-})
+alert("Copied");
 
 }
-
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-p.forEach(e=>{
-
-ctx.beginPath()
-
-ctx.arc(e.x,e.y,e.r,0,Math.PI*2)
-
-ctx.fillStyle="#25d366"
-
-ctx.fill()
-
-e.y-=e.s
-
-if(e.y<0)e.y=canvas.height
-
-})
-
-requestAnimationFrame(draw)
-
-}
-
-draw()
 
 </script>
 
-
 </body>
-
 </html>
