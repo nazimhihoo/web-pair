@@ -1,129 +1,299 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DANUWA-MD SESSION</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DANUWA-MD SESSION</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #000000;
+        --secondary-color: #ffffff;
+        --accent-color: #f0f0f0;
+        --text-color: #000000;
+        --background-color: #ffffff;
+        --hover-color: #f5f5f5;
+        --border-color: rgba(0, 0, 0, 0.1);
+      }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<style>
-  body {
-    background-color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--background-color);
+        color: var(--text-color);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+      }
 
-  .container {
-    max-width: 400px;
-    margin: 100px auto 50px auto;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    border-radius: 15px;
-  }
+      .container {
+        width: 100%;
+        max-width: 450px;
+        background: var(--background-color);
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+      }
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    color: #333;
-  }
+      .header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
 
-  input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-  }
+      .logo {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 16px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        color: white;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      }
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    margin: 10px 0;
-  }
+      .title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--primary-color);
+      }
 
-  button:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
-  }
+      .subtitle {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+        margin-bottom: 20px;
+      }
 
-  #codeDisplay {
-    margin: 15px 0;
-    font-size: 18px;
-    color: #444;
-    word-break: break-word;
-  }
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
 
-  .footer {
-    text-align: center;
-    padding: 10px 0;
-    color: #888;
-    font-size: 14px;
-    position: relative;
-  }
+      .social-icons a {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
 
-  /* Akashfun line */
-  .akashLine {
-    position: absolute;
-    bottom: 40px; /* copyright ke upar */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-  }
-</style>
-</head>
+      .social-icons a.youtube {
+        background: #ff0000;
+      }
+      .social-icons a.telegram {
+        background: #0088cc;
+      }
+      .social-icons a.whatsapp {
+        background: #0cfa10;
+      }
+      .social-icons a.github {
+        background: #333;
+      }
+
+      .social-icons a:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        background: var(--hover-color);
+        border-radius: 12px;
+        padding: 4px;
+        border: 1px solid var(--border-color);
+      }
+
+      .toggle-option {
+        flex: 1;
+        padding: 10px 16px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .toggle-option.active {
+        background: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      .copy-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--hover-color);
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 15px;
+      }
+
+      .generate-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--primary-color);
+        border: none;
+        border-radius: 12px;
+        color: var(--secondary-color);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 16px;
+      }
+
+      .code-display {
+        background: var(--hover-color);
+        padding: 12px;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        min-height: 40px;
+        border: 1.5px solid var(--border-color);
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+    </style>
+  </head>
 
 <body>
 
 <div class="container">
 
-  <h1>DANUWA-MD</h1>
+<div class="header">
 
-  <input type="text" id="mobileNumber" placeholder="+94774915917">
+<div class="logo">
+<i class="fas fa-robot"></i>
+</div>
 
-  <button id="submit">Generate Pair Code</button>
+<h1 class="title">DANUWA-MD</h1>
 
-  <div id="codeDisplay">
-    Your pair code will appear here
-  </div>
-
-  <button onclick="copyCode()">Copy Code</button>
-
-  <div class="footer">
-    <p>© 2025 DANUWA-MD. All rights reserved.</p>
-  </div>
-
-  <!-- Akashfun line -->
-  <div class="akashLine">
-    Mis you NAKCHARRI 🥹 🫴
-  </div>
+<p class="subtitle">
+Link your WhatsApp device
+</p>
 
 </div>
 
-<script>
-  document.getElementById("submit").addEventListener("click", async (e)=>{
-    const number = document.getElementById("mobileNumber").value;
-    const response = await axios(`/pair?number=${number}`);
-    document.getElementById("codeDisplay").innerHTML = response.data.code;
-  });
 
-  function copyCode(){
-    const text = document.getElementById("codeDisplay").innerText;
-    navigator.clipboard.writeText(text);
-  }
+<input
+type="text"
+id="mobileNumber"
+class="input-field"
+placeholder="+94774915917"
+/>
+
+
+<button
+class="generate-btn"
+id="submit"
+>
+Generate Pair Code
+</button>
+
+
+<div
+class="code-display"
+id="codeDisplay"
+>
+Your pair code will appear here
+</div>
+
+
+<button
+class="copy-btn"
+onclick="copyCode()"
+>
+Copy Code
+</button>
+
+
+<div class="footer">
+
+<p>
+© 2025 DANUWA-MD. All rights reserved.
+</p>
+
+</div>
+
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+
+
+<script>
+
+document.getElementById("submit")
+.addEventListener("click", async ()=>{
+
+let number =
+document.getElementById("mobileNumber").value;
+
+let response =
+await axios(`/pair?number=${number}`);
+
+document.getElementById("codeDisplay")
+.innerHTML =
+response.data.code;
+
+});
+
+
+function copyCode(){
+
+let code =
+document.getElementById("codeDisplay")
+.innerText;
+
+navigator.clipboard.writeText(code);
+
+}
+
 </script>
+
 
 </body>
 </html>
