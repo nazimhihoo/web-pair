@@ -3,284 +3,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAIR CODE - NextGen-XMD</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>NextGen-XMD Session</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <style>
-/* ----- Global ----- */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #141414, #1a1a2e);
-}
-#bg-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
+
+/* BACKGROUND */
+
+body{
+margin:0;
+font-family:Arial;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:linear-gradient(135deg,#141414,#1a1a2e);
+overflow:hidden;
 }
 
-/* Container */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    position: relative;
+#bg-canvas{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
-/* Pair Box - Glassmorphism */
-.box {
-    width: 320px;
-    padding: 25px;
-    background: rgba(72,133,237,0.25);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+/* CONTAINER */
+
+.container{
+
+width:340px;
+padding:25px;
+border-radius:18px;
+
+background:rgba(72,133,237,0.25);
+
+backdrop-filter:blur(12px);
+
+box-shadow:0 8px 30px rgba(0,0,0,0.6);
+
+text-align:center;
+
 }
 
-h3,h6 { margin: 5px 0; }
+/* BOT IMAGE */
 
-/* Input Container */
-.input-container {
-    display: flex;
-    gap: 0.3rem;
-    margin-top: 10px;
-    width: 100%;
-}
-.input-container input {
-    flex: 3;
-    padding: 1rem;
-    border-radius: 0.8rem 0 0 0.8rem;
-    border: none;
-    background: #000;
-    color: #ecf0f1;
-    border-left: 2px solid #075e54;
-    transition: all 0.2s ease;
-}
-.input-container input:focus {
-    outline: none;
-    box-shadow: 0 0 10px #25d366, inset 0 0 5px #00b894;
-}
-.input-container button {
-    flex: 1;
-    padding: 1rem;
-    background: linear-gradient(135deg,#25d366,#00b894);
-    color: white;
-    font-weight: 900;
-    letter-spacing: 0.2rem;
-    border-radius: 0 0.8rem 0.8rem 0;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.input-container button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+#bot-pp{
+
+width:120px;
+height:120px;
+border-radius:50%;
+border:3px solid #25d366;
+box-shadow:0 0 25px #25d366;
+margin-bottom:10px;
+
 }
 
-#loading-spinner { display: none; margin-top: 10px; font-size: 1.5rem; }
-#pair { margin-top: 15px; word-break: break-all; text-align: center; }
-#qrcode { margin-top: 15px; }
+/* TITLE */
 
-/* Developer Info Panel - Gradient Background */
-.info-panel {
-    width: 320px;
-    background: linear-gradient(135deg, #000000, #111111);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    text-align: center;
-    color: #fff;
-    position: relative;
-}
-.info-panel h4 { margin: 5px 0; font-size: 1.1rem; }
-.info-panel p { margin: 3px 0; font-size: 0.9rem; line-height: 1.3rem; display: flex; align-items: center; justify-content: center; gap:5px; }
-.info-panel a { color: #25d366; text-decoration: none; display: flex; align-items: center; gap:5px; }
-.info-panel a:hover { text-decoration: underline; }
+.title{
 
-/* Floating VIP Fun Text */
-.floating-text {
-    position: absolute;
-    font-size: 1rem;
-    font-weight: bold;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: 1000;
-    pointer-events: none;
-    animation: floatMove 15s linear infinite;
+font-size:22px;
+font-weight:bold;
+
 }
 
-/* Bot PP */
-#bot-pp {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 3px solid #25d366;
-    box-shadow: 0 0 30px #25d366;
-    animation: float 3s ease-in-out infinite;
-    transition: transform 0.3s;
-}
-#bot-pp:hover {
-    transform: scale(1.1) translateY(-5px);
+.subtitle{
+
+font-size:14px;
+opacity:0.8;
+margin-bottom:15px;
+
 }
 
-/* Animated Made by Text */
-#animated-text {
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-align: center;
-    background: linear-gradient(90deg, #FFD93D,#6BCB77,#FF6B6B);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 3s ease-in-out infinite alternate;
+/* TOGGLE */
+
+.toggle-container{
+
+display:flex;
+background:#000;
+border-radius:10px;
+margin-bottom:15px;
+
 }
 
-/* Animations */
-@keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
-@keyframes floatMove {
-    0% { top:10%; left:5%; }
-    25% { top:70%; left:10%; }
-    50% { top:20%; left:80%; }
-    75% { top:80%; left:60%; }
-    100% { top:10%; left:5%; }
-}
-@keyframes glow { 0%{ color:#FFD93D; } 50%{ color:#6BCB77; } 100%{ color:#FF6B6B; } }
+.toggle-option{
 
-/* Responsive */
-@media(max-width:500px){
-    .box,.info-panel{ width:90%; }
-    .input-container{ flex-direction: column; }
-    .input-container button,.input-container input{ border-radius:0.8rem;width:100%; }
+flex:1;
+padding:10px;
+cursor:pointer;
+
 }
+
+.toggle-option.active{
+
+background:#25d366;
+
+}
+
+/* INPUT */
+
+.input{
+
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+margin-bottom:10px;
+background:#000;
+color:#fff;
+
+}
+
+/* BUTTON */
+
+.btn{
+
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#25d366,#00b894);
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+/* DISPLAY */
+
+.display{
+
+margin-top:15px;
+padding:12px;
+background:#000;
+border-radius:10px;
+min-height:40px;
+
+}
+
+/* COPY */
+
+.copy{
+
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#111;
+border:none;
+border-radius:10px;
+color:#fff;
+cursor:pointer;
+
+}
+
+/* QR */
+
+#qr{
+
+display:none;
+margin-top:10px;
+
+}
+
+#qr img{
+
+width:200px;
+border-radius:10px;
+
+}
+
+.footer{
+
+margin-top:15px;
+font-size:12px;
+opacity:0.7;
+
+}
+
 </style>
+
 </head>
 
 <body>
+
 <canvas id="bg-canvas"></canvas>
 
 <div class="container">
 
-    <!-- Bot PP -->
-    <img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp" alt="Bot PP">
+<img id="bot-pp" src="https://files.catbox.moe/i6iehn.bmp">
 
-    <!-- Floating Fun Text -->
-    <div class="floating-text">Miss You Nakcharri ❤️ Akash</div>
+<div class="title">NextGen-XMD</div>
 
-    <!-- Animated Made by Text -->
-    <div id="animated-text">Developed by NazimX 🌟</div>
+<div class="subtitle">Connect your WhatsApp</div>
 
-    <!-- Pair Box -->
-    <div class="box" id="box">
-        <i class="fa fa-user"></i>
-        <h3>Connect your WhatsApp account</h3>
-        <h6>Enter your number with country code</h6>
-        <div class="input-container">
-            <input type="number" id="number" placeholder="+923xxxxxxx">
-            <button id="submit">Generate Pair Code</button>
-        </div>
-        <div id="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
-        <main id="pair">Your pair code will appear here</main>
-        <div id="qrcode"></div>
-    </div>
 
-    <!-- Bottom Info Panel -->
-    <div class="info-panel">
-        <h4>NextGen-XMD</h4>
-        <p><i class="fab fa-whatsapp"></i> Owner</p>
-        <p><i class="fab fa-telegram"></i> Telegram</p>
-        <p><a href="https://whatsapp.com/channel/0029VbCkij1DJ6H93OPIIR0I">Official Channel: Join</a></p>
-        <p><a href="https://whatsapp.com/channel/0029Vb72AUmHbFVCSN6cMd37">Backup Channel: Join</a></p>
-    </div>
+<!-- TOGGLE -->
+
+<div class="toggle-container">
+
+<div class="toggle-option active" onclick="setMode('pair')" id="pairBtn">
+
+Pair Code
 
 </div>
 
+<div class="toggle-option" onclick="setMode('qr')" id="qrBtn">
+
+QR Code
+
+</div>
+
+</div>
+
+
+<!-- INPUT -->
+
+<input class="input" id="number" placeholder="+923xxxxxxxxx">
+
+
+<button class="btn" id="submit">
+
+Generate Pair Code
+
+</button>
+
+
+<div class="display" id="display">
+
+Your code will appear here
+
+</div>
+
+
+<button class="copy" onclick="copyCode()">
+
+Copy Code
+
+</button>
+
+
+<div id="qr">
+
+<img id="qrimg">
+
+</div>
+
+
+<div class="footer">
+
+© NextGen-XMD
+
+</div>
+
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
 <script>
-let a=document.getElementById("pair");
-let b=document.getElementById("submit");
-let c=document.getElementById("number");
 
-async function Copy(){
-    let text=document.getElementById("copy")?.innerText||'';
-    let obj=document.getElementById("copy");
-    if(obj){
-        await navigator.clipboard.writeText(obj.innerText.replace('CODE: ',''));
-        obj.innerText="✔️ COPIED";
-        obj.style="color:red;font-weight:bold";
-        setTimeout(()=>{obj.innerText=text;obj.style="color:white;font-weight:bold";},500);
-    }
+/* MODE */
+
+let mode="pair"
+
+
+function setMode(m){
+
+mode=m
+
+display.innerHTML="Loading..."
+
+qr.style.display="none"
+
+if(m=="pair"){
+
+submit.style.display="block"
+
+number.style.display="block"
+
+pairBtn.classList.add("active")
+
+qrBtn.classList.remove("active")
+
 }
 
-function generateQRCode(text){
-    document.getElementById("qrcode").innerHTML = "";
-    new QRCode(document.getElementById("qrcode"), {
-        text: text,
-        width: 160,
-        height: 160,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-    });
+else{
+
+submit.style.display="none"
+
+number.style.display="none"
+
+pairBtn.classList.remove("active")
+
+qrBtn.classList.add("active")
+
+loadQR()
+
 }
 
-b.addEventListener("click",async(e)=>{
-    e.preventDefault();
-    if(!c.value){
-        a.innerHTML='<a style="color:black;font-weight:bold">❗Enter your WhatsApp number with country code.</a><br><br>';
-    }
-    else if(c.value.replace(/[^0-9]/g,"").length<11){
-        a.innerHTML='<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
-    }
-    else{
-        const bc=c.value.replace(/[^0-9]/g,"");
-        let {data}=await axios(`/code?number=${bc}`);
-        let code=data.code||"❗ Service Unavailable";
-        a.innerHTML='<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">'+code+'</span></font><br><br>';
-        generateQRCode("https://yourpairlink.com/?code=" + code);
-    }
-});
+}
 
-// ===== Background Petals Animation =====
-const canvas=document.getElementById("bg-canvas");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-let petals=[];
-const colors=["#FF6B6B","#FFD93D","#6BCB77","#4D96FF","#FF6EC7"];
-for(let i=0;i<60;i++){
-    petals.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+2,color:colors[Math.floor(Math.random()*colors.length)],speed:Math.random()*2+1,angle:Math.random()*360});
+
+/* PAIR */
+
+submit.onclick=async()=>{
+
+let num=number.value.replace(/[^0-9]/g,"")
+
+if(!num){
+
+display.innerHTML="Enter number"
+
+return
+
 }
-function drawPetals(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let p of petals){
-        ctx.beginPath();
-        ctx.fillStyle=p.color;
-        ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
-        ctx.fill();
-        p.y-=p.speed;
-        p.x+=Math.sin(p.angle)*0.5;
-        p.angle+=0.01;
-        if(p.y<-10)p.y=canvas.height+10;
-        if(p.x>canvas.width+10)p.x=-10;
-    }
-    requestAnimationFrame(drawPetals);
+
+display.innerHTML="Loading..."
+
+let res=await axios("/pair?number="+num)
+
+let code=res.data.code||"Error"
+
+display.innerHTML="CODE: "+code
+
 }
-drawPetals();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+
+/* QR */
+
+async function loadQR(){
+
+let res=await axios("/qr")
+
+qrimg.src=res.data.qr
+
+qr.style.display="block"
+
+display.innerHTML="Scan QR"
+
+}
+
+
+/* COPY */
+
+function copyCode(){
+
+let text=display.innerText.replace("CODE: ","")
+
+navigator.clipboard.writeText(text)
+
+display.innerHTML="Copied ✔"
+
+}
+
+
+/* BACKGROUND */
+
+let canvas=document.getElementById("bg-canvas")
+
+let ctx=canvas.getContext("2d")
+
+canvas.width=innerWidth
+
+canvas.height=innerHeight
+
+let p=[]
+
+for(let i=0;i<50;i++){
+
+p.push({
+
+x:Math.random()*canvas.width,
+
+y:Math.random()*canvas.height,
+
+r:Math.random()*5,
+
+s:Math.random()*2
+
+})
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+p.forEach(e=>{
+
+ctx.beginPath()
+
+ctx.arc(e.x,e.y,e.r,0,Math.PI*2)
+
+ctx.fillStyle="#25d366"
+
+ctx.fill()
+
+e.y-=e.s
+
+if(e.y<0)e.y=canvas.height
+
+})
+
+requestAnimationFrame(draw)
+
+}
+
+draw()
+
 </script>
+
+
 </body>
+
 </html>
