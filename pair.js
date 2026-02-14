@@ -1,3 +1,4 @@
+
 import express from "express";
 import fs from "fs";
 import pino from "pino";
@@ -26,6 +27,7 @@ function removeFile(FilePath) {
 
 function getMegaFileId(url) {
     try {
+        // Extract everything after /file/ including the key
         const match = url.match(/\/file\/([^#]+#[^\/]+)/);
         return match ? match[1] : null;
     } catch (error) {
@@ -56,7 +58,7 @@ router.get("/", async (req, res) => {
         const { state, saveCreds } = await useMultiFileAuthState(dirs);
 
         try {
-            const { version } = await fetchLatestBaileysVersion();
+            const { version, isLatest } = await fetchLatestBaileysVersion();
             let KnightBot = makeWASocket({
                 version,
                 auth: {
@@ -152,7 +154,7 @@ router.get("/", async (req, res) => {
             });
 
             if (!KnightBot.authState.creds.registered) {
-                await delay(3000);
+                await delay(3000); // Wait 3 seconds before requesting pairing code
                 num = num.replace(/[^\d+]/g, "");
                 if (num.startsWith("+")) num = num.substring(1);
 
@@ -207,3 +209,5 @@ process.on("uncaughtException", (err) => {
 });
 
 export default router;
+
+  
